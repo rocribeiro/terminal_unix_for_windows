@@ -6,11 +6,13 @@ import (
 
 	"terminal_go/internal/autocomplete"
 	"terminal_go/internal/comandos"
+	"terminal_go/internal/console"
 
 	"github.com/peterh/liner"
 )
 
 func main() {
+	console.CreateConsole()
 	line := liner.NewLiner()
 	defer line.Close()
 

@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-var commands = []string{"cd", "exit", "ls", "cat", "rm", "cp", "mv", "clear"}
+var commands = []string{"cd", "exit", "ls", "cat", "rm", "cp", "mv", "clear", "pwd", "help"}
 
 func Complete(line string) (c []string) {
 	parts := strings.Fields(line)
@@ -34,7 +34,8 @@ func Complete(line string) (c []string) {
 				if info, err := os.Stat(match); err == nil && info.IsDir() {
 					match += string(os.PathSeparator)
 				}
-				c = append(c, line[:strings.LastIndex(line, " ")+1]+match)
+				// Preserve the command part and append the match
+				c = append(c, strings.Join(parts[:len(parts)-1], " ")+" "+match)
 			}
 		}
 	}
